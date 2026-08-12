@@ -199,3 +199,12 @@ async def like_game(game_id: str, user_id: str, db: Session = Depends(get_db)):
     db.add(like)
     db.commit()
     return {"status": "success"}
+
+@app.get("/seed")
+async def trigger_seed():
+    try:
+        from seed import seed_database
+        seed_database()
+        return {"status": "success", "message": "Database seeded successfully!"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
