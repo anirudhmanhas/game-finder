@@ -1,83 +1,61 @@
-# Project Plan: AI-Powered Game Discovery and Generation Platform
+# Project Plan: AI-Powered Game Discovery and Generation Platform (COMPLETED)
 
-## 1. Proposed Architecture
+## 1. Final Architecture
 
-Our platform will consist of five main components working together to deliver a seamless game discovery and generation experience:
+Our platform consists of four main components working together to deliver a seamless game discovery and generation experience:
 
-- **Frontend (Web App):** A responsive user interface where users can input natural language prompts, view personalized game recommendations, and play generated games directly in the browser.
-- **Backend (API Gateway & Orchestrator):** The core server that routes requests, handles authentication, orchestrates LLM calls, and manages asynchronous tasks like game generation.
-- **Database (Relational & Cache):** Stores game metadata, user profiles, prompt history, and generated game states.
-- **LLM Integration:** External API for natural language understanding (NLU) to parse user prompts and extract intents, and to generate code/logic for simple games.
-- **Game Generation Engine:** A secure sandbox or wrapper (e.g., Phaser.js or basic HTML5 Canvas) that interprets LLM-generated code into playable web games.
+- **Frontend (Web App):** A responsive React interface featuring a minimalist, information-dense UI. Users can input natural language prompts, view personalized game recommendations with AI-generated popularity metrics, and play generated games directly in the browser.
+- **Backend (API Gateway & Orchestrator):** A FastAPI server that routes requests, orchestrates Gemini LLM calls via `asyncio`, and manages the pipeline for both semantic search and on-the-fly game generation.
+- **Database (Relational & Vector):** A PostgreSQL database using `pgvector` to store game metadata and perform semantic similarity searches against user prompts.
+- **LLM Integration (Google Gemini):** Utilizes `gemini-flash-lite-latest` for zero-shot natural language understanding (extracting structured intent from prompts) and generating functional HTML5 Canvas game code.
 
-## 2. Tech Stack Recommendation
+## 2. Tech Stack Used
 
-- **Frontend:** **React + Vite** (Fast build times, excellent ecosystem for web games/Canvas integration). *Styling:* Tailwind CSS.
-- **Backend:** **FastAPI (Python)** (High performance, native async support for LLM calls, excellent OpenAPI documentation).
-- **Database:** **PostgreSQL** (Robust relational data, JSONB support for flexible game tags/mechanics). *Caching/Message Broker:* **Redis** (for Celery and LLM response caching).
-- **Task Queue:** **Celery** (Crucial for handling long-running game generation tasks asynchronously).
+- **Frontend:** **React + Vite** (Fast build times, excellent ecosystem for web games/Canvas integration). *Styling:* Vanilla CSS for a custom, premium look without heavy frameworks.
+- **Backend:** **FastAPI (Python)** (High performance, native async support for LLM calls).
+- **Database:** **PostgreSQL + pgvector** (Robust relational data combined with powerful vector embeddings for semantic search).
 - **LLM API:** **Google Gemini API** (State-of-the-art NLP and code generation capabilities).
-- **Game Engine:** **Phaser.js** (Best-in-class 2D HTML5 game framework, easy to target with LLM code generation).
-
-*Justification:* This stack balances rapid development (FastAPI, React) with the performance needed for asynchronous AI tasks (Celery, Redis) and flexible data modeling (PostgreSQL JSONB).
+- **Validation Engine:** **Playwright** (Headless browser automation to sandbox and verify generated game code before presenting it to the user).
 
 ## 3. Data Model
 
-Below are the primary entities for the PostgreSQL database:
-
-**`users`**
-- `id` (UUID, Primary Key)
-- `username` (String, Unique)
-- `email` (String, Unique)
-- `created_at` (Timestamp)
-
-**`games` (Existing game database)**
+**`games` (Game database)**
 - `id` (UUID, Primary Key)
 - `title` (String)
 - `description` (Text)
-- `genre` (Array of Strings)
-- `platform` (Array of Strings)
-- `tags` (Array of Strings - e.g., "sci-fi", "retro")
-- `mechanics` (Array of Strings)
-- `multiplayer_support` (Boolean)
-- `difficulty` (String / Enum)
-- `source_url` (String)
-
-**`prompts`**
-- `id` (UUID, Primary Key)
-- `user_id` (UUID, Foreign Key)
-- `raw_text` (Text)
-- `parsed_intent` (JSONB - extracted genres, tags, mechanics)
-- `created_at` (Timestamp)
+- `genres` (Array of Strings)
+- `platforms` (Array of Strings)
+- `tags` (Array of Strings)
+- `embedding` (Vector - pgvector for semantic search)
+- `image_url` (String)
+- `source` (String)
 
 **`generated_games`**
 - `id` (UUID, Primary Key)
-- `prompt_id` (UUID, Foreign Key)
-- `status` (Enum - PENDING, GENERATING, COMPLETED, FAILED)
-- `source_code` (Text - the generated game logic)
-- `assets` (JSONB - URLs to generated or default assets)
+- `prompt` (Text)
+- `html_content` (Text - the generated game logic)
+- `is_valid` (Boolean - passed Playwright validation)
 - `created_at` (Timestamp)
 
-## 4. Phased Build Plan
+**`analytics_logs`**
+- `id` (Integer, Primary Key)
+- `event_type` (String)
+- `event_data` (JSON)
+- `created_at` (Timestamp)
 
-1. **Phase 1: Architecture & Scaffolding** (Current)
-   - Define project plan, scaffold repo structure (Frontend, Backend, Docker).
-2. **Phase 2: Data Layer & Basic Backend**
-   - Setup PostgreSQL models, Alembic migrations, and basic CRUD endpoints in FastAPI.
-3. **Phase 3: NLP & Prompt Understanding**
-   - Integrate LLM API. Build the pipeline to parse raw text into structured `parsed_intent` JSON.
-4. **Phase 4: Recommendation Engine**
-   - Populate `games` table with sample data. Build similarity search to match `parsed_intent` to existing games.
-5. **Phase 5: Game Generation Engine MVP**
-   - Setup Celery workers. Engineer LLM prompts to output valid Phaser.js/Canvas code based on user requests.
-6. **Phase 6: Frontend Development**
-   - Build React UI for inputting prompts, displaying recommendations, and a secure `<iframe>` or sandbox component to run generated games.
-7. **Phase 7: Integration, Testing & Deployment**
-   - End-to-end testing, error handling, Docker optimizations, and cloud deployment (e.g., AWS, GCP).
+## 4. Phased Build Plan (All Phases Complete)
 
-## 5. Key Risks
+- [x] **Phase 1: Architecture & Scaffolding** 
+- [x] **Phase 2: Data Layer & Basic Backend** (Setup PostgreSQL models, Alembic migrations)
+- [x] **Phase 3: NLP & Prompt Understanding** (Integrate Gemini API for structured intent parsing)
+- [x] **Phase 4: Recommendation Engine** (Implement pgvector similarity search, seed DB with 200 games)
+- [x] **Phase 5: Game Generation Engine** (Engineer Gemini prompts to output valid HTML5 Canvas code, implement Playwright validation)
+- [x] **Phase 6: Frontend Development** (Build React UI, implement "Made by Boiler_Plate_Dine" footer, and Minimalist UI pivot)
+- [x] **Phase 7: Dynamic Features** (Add real-time AI popularity metrics to search results)
+- [x] **Phase 8: Deployment** (Deploy to Render.com using Infrastructure as Code blueprints, implement `/seed` backdoor for production DB seeding)
 
-- **LLM Latency & Cost:** Parsing and especially generating game code can be slow and expensive. *Mitigation:* Heavy caching, async progress bars for the user, and streaming responses.
-- **Generated Game Quality & Scope Limits:** Generative AI for games is experimental. Generated games may have bugs, lack "fun", or fail to compile. *Mitigation:* Restrict scope to simple 2D genres initially (e.g., pong, simple platformers, space shooters) and provide robust error handling/fallback templates.
-- **Security (XSS / Arbitrary Code Execution):** Running LLM-generated code in the browser is risky. *Mitigation:* Execute generated games in highly restricted sandboxes or cross-origin `<iframe>`s.
-- **Data Licensing:** Scraping or acquiring a database of existing games might violate terms of service. *Mitigation:* Use open APIs (like IGDB or RAWG) and comply with their licensing and attribution requirements.
+## 5. Key Risks Mitigated
+
+- **LLM Latency & Cost:** Mitigated by using `gemini-flash-lite-latest` which provides sub-second reasoning and utilizing native `asyncio.to_thread` to prevent blocking the FastAPI event loop.
+- **Generated Game Quality:** Mitigated by implementing a robust headless Chromium (Playwright) validation step that ensures the LLM's output is syntactically valid and renders a functional `<canvas>` before saving it to the database.
+- **Security:** Mitigated by sandboxing the generated HTML/JS in an isolated environment and stripping malicious tags.
