@@ -2,6 +2,7 @@ import React from 'react';
 import GameCard from './GameCard';
 import FilterBar from './FilterBar';
 import { Gamepad2, SearchX } from 'lucide-react';
+import { API_BASE_URL } from '../api';
 
 export default function Results({ results, generatedGame, filters, setFilters }) {
   return (
@@ -16,7 +17,7 @@ export default function Results({ results, generatedGame, filters, setFilters })
           </h2>
           <div className="iframe-container">
             <iframe 
-              src={`http://localhost:8001/games/${generatedGame.game_id}/play`}
+              src={`${API_BASE_URL}/games/${generatedGame.game_id}/play`}
               title="Generated Game"
               sandbox="allow-scripts allow-same-origin"
             />
