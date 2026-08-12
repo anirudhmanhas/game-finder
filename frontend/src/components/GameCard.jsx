@@ -17,6 +17,7 @@ export default function GameCard({ game }) {
 
   return (
     <div className="game-card glass">
+
       <div className="game-card-content">
         <div className="game-card-header">
           <h3 className="game-title">{game.title}</h3>
@@ -26,6 +27,18 @@ export default function GameCard({ game }) {
         </div>
         
         <p className="game-reason">{game.match_reason}</p>
+        
+        {game.ai_popularity_score && (
+          <div style={{ marginTop: '0.5rem', marginBottom: '1rem', padding: '0.75rem', backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--accent-color)' }}>AI Popularity Insight</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>{game.ai_popularity_score}/100</span>
+            </div>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: 0, fontStyle: 'italic' }}>
+              "{game.ai_popularity_reason}"
+            </p>
+          </div>
+        )}
         
         <div className="game-tags">
           {game.genres.slice(0, 2).map((g, i) => (

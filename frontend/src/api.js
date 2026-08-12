@@ -19,6 +19,24 @@ export async function searchGames(prompt, filters = {}) {
   return response.json();
 }
 
+export async function generateGame(prompt) {
+  const response = await fetch(`${API_BASE_URL}/generate`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      prompt
+    }),
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to generate game');
+  }
+  
+  return response.json();
+}
+
 export async function likeGame(gameId) {
   // Using a mock user_id for now
   const userId = "mock-user-123";

@@ -16,6 +16,7 @@ class Game(Base):
     release_year = Column(Integer, nullable=True)
     source = Column(String, nullable=True)
     external_url = Column(String, nullable=True)
+    image_url = Column(String, nullable=True)
     embedding = Column(Vector(768), nullable=True)  # Using 768 for Gemini text-embedding-004 size compatibility
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 

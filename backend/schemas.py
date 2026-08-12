@@ -12,6 +12,7 @@ class GameBase(BaseModel):
     release_year: Optional[int] = None
     source: Optional[str] = None
     external_url: Optional[str] = None
+    image_url: Optional[str] = None
 
 class GameCreate(GameBase):
     pass
@@ -33,6 +34,7 @@ class StructuredQuery(BaseModel):
     embedding: Optional[List[float]] = None
     needs_clarification: bool = False
     suggested_question: Optional[str] = None
+    game_complexity: str = "Heavy/3D"
 
 class RecommendationRequest(BaseModel):
     prompt: str
@@ -43,6 +45,8 @@ class RecommendationResult(GameResponse):
     match_score: float
     match_reason: str
     is_external: bool = False
+    ai_popularity_score: Optional[int] = None
+    ai_popularity_reason: Optional[str] = None
 
 class GenerateRequest(BaseModel):
     prompt: str
@@ -62,4 +66,5 @@ class SearchResponse(BaseModel):
     clarification_needed: bool
     suggested_question: Optional[str] = None
     recommendations: List[RecommendationResult] = []
+    can_generate: bool = False
     generated_game: Optional[GenerateResponse] = None

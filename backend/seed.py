@@ -25,7 +25,8 @@ def generate_random_game():
         tags=random.sample(TAGS, num_tags),
         release_year=random.randint(2010, 2026),
         source="seed_script",
-        external_url="https://example.com"
+        external_url="https://example.com",
+        image_url=f"https://picsum.photos/seed/{title.replace(' ', '')}/400/225"
     )
 
 def seed_database():

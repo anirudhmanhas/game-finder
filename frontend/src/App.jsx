@@ -13,6 +13,7 @@ export default function App() {
   
   const [results, setResults] = useState([]);
   const [generatedGame, setGeneratedGame] = useState(null);
+  const [canGenerate, setCanGenerate] = useState(false);
   const [clarifyData, setClarifyData] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -42,6 +43,7 @@ export default function App() {
       }
       
       setResults(response.recommendations || []);
+      setCanGenerate(response.can_generate || false);
       
       // Update generated game only on fresh searches
       if (!isFilterUpdate && response.generated_game) {
@@ -116,10 +118,17 @@ export default function App() {
         <Results 
           results={results} 
           generatedGame={generatedGame} 
+          setGeneratedGame={setGeneratedGame}
+          canGenerate={canGenerate}
+          currentPrompt={currentPrompt}
           filters={filters}
           setFilters={setFilters}
         />
       )}
+
+      <footer style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)', marginTop: 'auto' }}>
+        Made by Boiler_Plate_Dine
+      </footer>
     </>
   );
 }

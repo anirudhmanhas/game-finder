@@ -98,7 +98,7 @@ def generate_match_reason(game: Game, query: StructuredQuery, score: float) -> s
         
     return "This game " + " and ".join(reasons) + "."
 
-def get_recommendations(query: StructuredQuery, user_id: Optional[str], filters: Optional[dict], db: Session) -> List[RecommendationResult]:
+async def get_recommendations(query: StructuredQuery, user_id: Optional[str], filters: Optional[dict], db: Session) -> List[RecommendationResult]:
     """
     Get game recommendations based on a pre-parsed StructuredQuery.
     
@@ -163,5 +163,21 @@ def get_recommendations(query: StructuredQuery, user_id: Optional[str], filters:
         scored_results.extend(external_results)
         scored_results.sort(key=lambda x: x.match_score, reverse=True)
         
-    # Return top 5 as RecommendationResult objects (not dicts)
-    return scored_results[:5]
+    final_results = scored_results[:5]
+    
+    # 4. Inject AI Popularity
+    try:
+        from services.prompt_interpreter import generate_popularity_metrics
+        game_titles = [r.title for r in final_results]
+        pop_metrics = await generate_popularity_metrics(game_titles)
+        
+        for r in final_results:
+            if r.title in pop_metrics:
+                r.ai_popularity_score = pop_metrics[r.title].get("score")
+                r.ai_popularity_reason = pop_metrics[r.title].get("reason")
+    except Exception as e:
+        import traceback
+        print(f"Error fetching popularity: {e}")
+        traceback.print_exc()
+        
+    return final_results

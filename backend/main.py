@@ -103,51 +103,23 @@ async def search_games(request: Request, req: SearchRequest, db: Session = Depen
                 suggested_question=query.suggested_question
             )
             
-        # 3. Get recommendations (synchronous — fast, no Playwright)
+        # 3. Get recommendations (fast, no Playwright, but small AI call for popularity)
         recs = []
         try:
-            recs = get_recommendations(query, req.user_id, req.filters, db)
+            recs = await get_recommendations(query, req.user_id, req.filters, db)
         except Exception as e:
             print(f"Recommendation error (non-fatal): {e}")
             traceback.print_exc()
         
-        # 4. Attempt game generation (async with timeout)
-        gen_result = None
-        gen_attempted = False
-        
-        try:
-            gen_attempted = True
-            t1 = time.time()
-            gen_result_dict = await asyncio.wait_for(
-                generate_game_pipeline(sanitized_prompt, query),
-                timeout=60.0
-            )
-            logger.info(f"[TIMING] generate_game_pipeline took {time.time() - t1:.2f}s")
+        # 4. Check if generation is possible (2D/Lightweight)
+        can_generate = (query.game_complexity == "2D/Lightweight")
             
-            if gen_result_dict and gen_result_dict.get("playable") and gen_result_dict.get("html_content"):
-                if db:
-                    new_game = GeneratedGame(
-                        prompt=sanitized_prompt,
-                        html_content=gen_result_dict["html_content"]
-                    )
-                    db.add(new_game)
-                    db.commit()
-                    db.refresh(new_game)
-                    gen_result_dict["game_id"] = str(new_game.id)
-                gen_result = GenerateResponse(**gen_result_dict)
-        except asyncio.TimeoutError:
-            print("Generation timed out after 60s.")
-        except Exception as e:
-            print(f"Generation failed: {e}")
-            traceback.print_exc()
-            
-        # 5. Log Analytics
+        # 5. Log Analytics (we now log generation_attempted in the new /generate endpoint)
         try:
             log = AnalyticsLog(
                 user_id=req.user_id,
                 prompt=sanitized_prompt,
-                generation_attempted=gen_attempted,
-                generated_game_id=str(gen_result.game_id) if gen_result and gen_result.game_id else None,
+                generation_attempted=False,
                 clarification_needed=False
             )
             if db:
@@ -161,10 +133,53 @@ async def search_games(request: Request, req: SearchRequest, db: Session = Depen
         return SearchResponse(
             clarification_needed=False,
             recommendations=recs,
-            generated_game=gen_result
+            can_generate=can_generate,
+            generated_game=None
         )
     except Exception as e:
         print(f"SEARCH ENDPOINT ERROR: {e}")
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content={"detail": f"Internal error: {str(e)}"}
+        )
+
+from schemas import GenerateRequest
+
+@app.post("/generate", response_model=GenerateResponse)
+@limiter.limit("10/minute")
+async def generate_game_endpoint(request: Request, req: GenerateRequest, db: Session = Depends(get_db)):
+    try:
+        sanitized_prompt = sanitize_prompt(req.prompt)
+        query = await interpret_prompt(sanitized_prompt)
+        
+        gen_result_dict = await asyncio.wait_for(
+            generate_game_pipeline(sanitized_prompt, query),
+            timeout=60.0
+        )
+        
+        if gen_result_dict and gen_result_dict.get("playable") and gen_result_dict.get("html_content"):
+            new_game = GeneratedGame(
+                prompt=sanitized_prompt,
+                html_content=gen_result_dict["html_content"]
+            )
+            db.add(new_game)
+            db.commit()
+            db.refresh(new_game)
+            gen_result_dict["game_id"] = str(new_game.id)
+            
+            # Log generation attempt
+            log = AnalyticsLog(
+                prompt=sanitized_prompt,
+                generation_attempted=True,
+                generated_game_id=str(new_game.id)
+            )
+            db.add(log)
+            db.commit()
+            
+        return GenerateResponse(**gen_result_dict)
+    except Exception as e:
+        print(f"GENERATE ENDPOINT ERROR: {e}")
         traceback.print_exc()
         return JSONResponse(
             status_code=500,

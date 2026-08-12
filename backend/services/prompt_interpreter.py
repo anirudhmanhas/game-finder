@@ -23,6 +23,7 @@ Return a JSON object with the following fields:
 - "intent_summary": A concise, normalized string summarizing the user's core intent.
 - "needs_clarification": Boolean. Set to true ONLY if the prompt is extremely vague, contradictory, or lacks any gaming context (e.g. "a fun game", "weather today").
 - "suggested_question": String or null. If needs_clarification is true, provide a follow-up question to ask the user.
+- "game_complexity": String. MUST be either "2D/Lightweight" (if they ask for simple mini-games, 2D platformers, arcade, retro, simple puzzle, pong, etc.) OR "Heavy/3D" (if they ask for AAA, open world, 3D, complex strategy, heavy graphics, etc.).
 
 Ensure your output is ONLY valid JSON without any markdown formatting.
 """
@@ -95,3 +96,34 @@ async def interpret_prompt(text: str) -> StructuredQuery:
             needs_clarification=True,
             suggested_question=f"I encountered an error processing your request: {str(e)}. Please try again."
         )
+
+async def generate_popularity_metrics(game_titles: list[str]) -> dict:
+    if not game_titles:
+        return {}
+        
+    prompt = f"""You are a gaming industry expert. For each of the following games, estimate its all-time global popularity and cultural impact as a score from 1 to 100. Also write a single sentence (max 15 words) explaining why it is popular or well-known.
+    
+    Games: {', '.join(game_titles)}
+    
+    Return ONLY a JSON object where keys are the exact game titles and values are objects containing "score" (integer) and "reason" (string). No markdown, just raw JSON.
+    Example: {{"Skyrim": {{"score": 98, "reason": "A genre-defining open-world RPG with massive cultural impact."}}}}
+    """
+    
+    try:
+        model = genai.GenerativeModel(
+            model_name="gemini-flash-lite-latest",
+            generation_config=genai.GenerationConfig(
+                response_mime_type="application/json",
+            )
+        )
+        response = await model.generate_content_async(prompt)
+        text = response.text.strip()
+        if text.startswith("```json"):
+            text = text[7:]
+        if text.endswith("```"):
+            text = text[:-3]
+            
+        return json.loads(text.strip())
+    except Exception as e:
+        print("ERROR IN POPULARITY METRICS:", e)
+        return {}
