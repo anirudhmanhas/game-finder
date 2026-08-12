@@ -23,7 +23,6 @@ services:
   - type: web
     name: playweave-frontend
     env: static
-    region: oregon
     plan: free
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist
@@ -42,6 +41,5 @@ services:
 databases:
   - name: playweave-db
     databaseName: gamefinder
-    user: postgres
     plan: free
     region: oregon
