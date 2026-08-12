@@ -27,7 +27,7 @@ services:
     staticPublishPath: ./frontend/dist
     envVars:
       - key: VITE_API_URL
-        value: https://playweave-backend.onrender.com # Auto-links to the backend URL
+        value: https://playweave-backend-efcm.onrender.com # Auto-links to the backend URL
     headers:
       - path: /*
         name: Access-Control-Allow-Origin
