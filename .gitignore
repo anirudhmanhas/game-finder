@@ -1,0 +1,57 @@
+# Environment Variables (DO NOT COMMIT!)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+.venv/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vite / React Build
+dist/
+dist-ssr/
+coverage/
+
+# IDE / OS Files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing / Local DB
+test.db
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.log

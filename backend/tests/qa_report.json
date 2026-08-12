@@ -1,0 +1,427 @@
+[
+  {
+    "id": 1,
+    "prompt": "2D platformer game with jumping",
+    "category": "short-clear",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Platformer"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 17.26,
+    "verdict": "PASS"
+  },
+  {
+    "id": 2,
+    "prompt": "space shooter with aliens",
+    "category": "short-clear",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Shooter"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 19.29,
+    "verdict": "PASS"
+  },
+  {
+    "id": 3,
+    "prompt": "puzzle game with block matching",
+    "category": "short-clear",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Puzzle"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 13.6,
+    "verdict": "PASS"
+  },
+  {
+    "id": 4,
+    "prompt": "A cozy pixel-art farming game where I can grow crops, raise animals, and decorate my house",
+    "category": "long-descriptive",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "RPG",
+      "Simulation"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 2.3,
+    "verdict": "PASS"
+  },
+  {
+    "id": 5,
+    "prompt": "An intense dark sci-fi roguelike with permadeath, procedural dungeons, and difficult boss fights",
+    "category": "long-descriptive",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Action",
+      "RPG"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 2.05,
+    "verdict": "PASS"
+  },
+  {
+    "id": 6,
+    "prompt": "RPG with strategy elements and puzzle mechanics",
+    "category": "multi-genre",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "RPG",
+      "Strategy"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 1.46,
+    "verdict": "PASS"
+  },
+  {
+    "id": 7,
+    "prompt": "racing game with action combat and powerups",
+    "category": "multi-genre",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Action",
+      "Racing"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 19.81,
+    "verdict": "PASS"
+  },
+  {
+    "id": 8,
+    "prompt": "a mobile puzzle game I can play on my phone",
+    "category": "platform-specific",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Puzzle"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 29.16,
+    "verdict": "PASS"
+  },
+  {
+    "id": 9,
+    "prompt": "Nintendo Switch party game for 4 players",
+    "category": "platform-specific",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Party"
+    ],
+    "genre_match": null,
+    "num_recommendations": 1,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 1.81,
+    "verdict": "PASS"
+  },
+  {
+    "id": 10,
+    "prompt": "a relaxing game with no combat, just exploring nature",
+    "category": "tone-mood",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Simulation",
+      "Adventure"
+    ],
+    "genre_match": null,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 19.56,
+    "verdict": "PASS"
+  },
+  {
+    "id": 11,
+    "prompt": "a horror survival game that is genuinely scary",
+    "category": "tone-mood",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Survival",
+      "Horror"
+    ],
+    "genre_match": null,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 19.91,
+    "verdict": "PASS"
+  },
+  {
+    "id": 12,
+    "prompt": "a fun game",
+    "category": "vague",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [],
+    "genre_match": null,
+    "num_recommendations": 0,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 1.45,
+    "verdict": "PASS"
+  },
+  {
+    "id": 13,
+    "prompt": "something to play",
+    "category": "vague",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [],
+    "genre_match": null,
+    "num_recommendations": 0,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 1.13,
+    "verdict": "PASS"
+  },
+  {
+    "id": 14,
+    "prompt": "what is the weather today",
+    "category": "off-topic",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [],
+    "genre_match": null,
+    "num_recommendations": 0,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 1.07,
+    "verdict": "PASS"
+  },
+  {
+    "id": 15,
+    "prompt": "asdfghjkl qwerty",
+    "category": "nonsensical",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [],
+    "genre_match": null,
+    "num_recommendations": 0,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 1.27,
+    "verdict": "PASS"
+  },
+  {
+    "id": 16,
+    "prompt": "a massive open-world 3D MMO RPG with thousands of players",
+    "category": "infeasible",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "RPG"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 1.65,
+    "verdict": "PASS"
+  },
+  {
+    "id": 17,
+    "prompt": "a realistic VR flight simulator",
+    "category": "infeasible",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Simulation"
+    ],
+    "genre_match": null,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 22.08,
+    "verdict": "PASS"
+  },
+  {
+    "id": 18,
+    "prompt": "a simple brick breaker game with paddle and bricks",
+    "category": "feasible",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Arcade"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 13.49,
+    "verdict": "PASS"
+  },
+  {
+    "id": 19,
+    "prompt": "a snake game where the snake grows when eating food",
+    "category": "feasible",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Arcade"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 19.82,
+    "verdict": "PASS"
+  },
+  {
+    "id": 20,
+    "prompt": "turn-based tactical combat like chess but with fantasy characters",
+    "category": "specific-mechanic",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "RPG",
+      "Strategy"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 2.08,
+    "verdict": "PASS"
+  },
+  {
+    "id": 21,
+    "prompt": "a rhythm game where you tap in time with music beats",
+    "category": "specific-mechanic",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Rhythm"
+    ],
+    "genre_match": null,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 19.98,
+    "verdict": "PASS"
+  },
+  {
+    "id": 22,
+    "prompt": "un jeu de plateforme simple en 2D",
+    "category": "non-english",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Platformer"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 14.84,
+    "verdict": "PASS"
+  },
+  {
+    "id": 23,
+    "prompt": "un juego de puzzle simple",
+    "category": "non-english",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Puzzle"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 13.51,
+    "verdict": "PASS"
+  },
+  {
+    "id": 24,
+    "prompt": "I want a game that combines elements of classic arcade shooters from the 80s like Galaga and Space Invaders with modern indie pixel art aesthetics, chiptune music, and a progression system where you unlock new ships and weapons over time. It should be playable in the browser with keyboard controls and have a leaderboard.",
+    "category": "very-long",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Arcade",
+      "Shooter"
+    ],
+    "genre_match": true,
+    "num_recommendations": 1,
+    "has_generated_game": false,
+    "generated_game_playable": false,
+    "notes": [],
+    "elapsed_s": 62.74,
+    "verdict": "PASS"
+  },
+  {
+    "id": 25,
+    "prompt": "<script>alert('xss')</script> give me a platformer game",
+    "category": "injection",
+    "http_ok": true,
+    "clarify_correct": true,
+    "genres_found": [
+      "Platformer"
+    ],
+    "genre_match": null,
+    "num_recommendations": 1,
+    "has_generated_game": true,
+    "generated_game_playable": true,
+    "notes": [],
+    "elapsed_s": 14.4,
+    "verdict": "PASS"
+  }
+]
